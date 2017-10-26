@@ -8,8 +8,8 @@ public:
 	~Point();
 	double *data;
 	int dimension;
-	/*0:未分配簇编号
-	其他大于0的值，代表相应的簇编号，这个值始终大于0*/
+	/*-1:未分配簇编号
+	其他的值，代表相应的簇编号，这个值始终大于等于0*/
 	int clusterIndex;
 	double distance(Point* pt);
 

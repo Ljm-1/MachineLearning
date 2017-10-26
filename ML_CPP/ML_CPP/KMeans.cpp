@@ -8,7 +8,7 @@ Point::Point(double* data,int dimNum){
 		this->data[i]=data[i];
 	}
 	this->dimension=dimNum;
-	this->clusterIndex=0;
+	this->clusterIndex=-1;
 }
 
 Point::~Point(){
@@ -40,13 +40,62 @@ int* KMeans::cluster(int clusterNum){
 		Point *pt=new Point(this->points.at(i)->data,this->points.at(i)->dimension);
 		cluCore.push_back(pt);
 	}
-	double *distance=new double[this->points.at(0)->dimension];
+	double *distance=new double[clusterNum];
+	double *x=new double[this->points.at(0)->dimension];
 	int index=-1;
+	double min;
 
-	for(int i=0;i<this->points.size();i++){
-		for(int j=0;j<this->points.at(0)->dimension;j++){
-			distance[j]=
+	bool isChange=true;
+	while(isChange){
+		isChange=false;
+		for(int i=0;i<this->points.size();i++){
+			for(int j=0;j<clusterNum;j++){
+				distance[j]=this->points.at(i)->distance(cluCore.at(j));
+			}
+			min=distance[0];
+			index=0;
+			for(int j=1;j<clusterNum;j++){
+				if(min>distance[j]){
+					min=distance[j];
+					index=j;
+				}
+			}
+			if(this->points.at(i)->clusterIndex!=index){
+				this->points.at(i)->clusterIndex=index;
+				isChange=true;
+			}
+			
 		}
 
+		
+		int num=0;
+
+		for(int i=0;i<clusterNum;i++){
+			for(int k=0;k<this->points.at(0)->dimension;k++){
+				x[k]=0;
+			}
+			num=0;
+			for(int j=0;j<this->points.size();j++){
+				if(this->points.at(j)->clusterIndex==i){
+					for(int k=0;k<this->points.at(i)->dimension;k++){
+						x[k]+=this->points.at(j)->data[k];
+					}
+					num++;
+				}
+			}
+			for(int k=0;k<this->points.at(i)->dimension;k++){
+				cluCore.at(i)->data[k]=x[k]/num;
+			}
+		}
+		
 	}
+
+	int* clu=new int[this->points.size()];
+	for(int i=0;i<this->points.size();i++)
+		clu[i]=this->points.at(i)->clusterIndex;
+
+	delete [] distance;
+	delete [] x;
+
+	return clu;
 }
