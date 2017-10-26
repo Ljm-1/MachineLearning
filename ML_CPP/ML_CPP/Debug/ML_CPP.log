@@ -1,0 +1,39 @@
+﻿生成启动时间为 2017/10/26 16:30:08。
+     1>项目“C:\Users\Administrator\Documents\GitHub\MachineLearning\ML_CPP\ML_CPP\ML_CPP.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\ML_CPP.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         d:\Visual Studio 2010\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt DBSCAN.cpp main.cpp
+         main.cpp
+         DBSCAN.cpp
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(25): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(26): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(35): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(36): warning C4018: “>=”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(40): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(41): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(43): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(57): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(65): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\administrator\documents\github\machinelearning\ml_cpp\ml_cpp\dbscan.cpp(103): warning C4018: “<”: 有符号/无符号不匹配
+         正在生成代码...
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         d:\Visual Studio 2010\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Administrator\Documents\GitHub\MachineLearning\ML_CPP\Debug\ML_CPP.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\ML_CPP.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Administrator\Documents\GitHub\MachineLearning\ML_CPP\Debug\ML_CPP.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Administrator\Documents\GitHub\MachineLearning\ML_CPP\Debug\ML_CPP.lib" /MACHINE:X86 Debug\ML_CPP.exe.embed.manifest.res
+         Debug\DBSCAN.obj
+         Debug\main.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\ML_CPP.exe.embed.manifest" /manifest Debug\ML_CPP.exe.intermediate.manifest
+         所有输出均为最新。
+       LinkEmbedManifest:
+         所有输出均为最新。
+         ML_CPP.vcxproj -> C:\Users\Administrator\Documents\GitHub\MachineLearning\ML_CPP\Debug\ML_CPP.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\ML_CPP.unsuccessfulbuild”。
+         正在对“Debug\ML_CPP.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“C:\Users\Administrator\Documents\GitHub\MachineLearning\ML_CPP\ML_CPP\ML_CPP.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:02.80
