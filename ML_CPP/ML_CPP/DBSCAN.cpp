@@ -1,6 +1,7 @@
 #include"DBSCAN.h"
 
 DBSCAN::DBSCAN(double** data,int pointNum,int dimNum){
+	this->points.reserve(50);
 	for(int i=0;i<pointNum;i++){
 		Ind *point=new Ind(data[i],dimNum);
 		this->points.push_back(point);
@@ -94,7 +95,7 @@ Ind::Ind(double* data,int dimNum){
 }
 
 Ind::~Ind(){
-	delete data;
+	delete [] data;
 	this->neighbour.clear();
 }
 
