@@ -31,7 +31,25 @@ class Perceptron(object):
             isChange=False
             for i in range(self.sample.shape[0]):
                 if (np.sum(G[i,:]*y*alpha)+b)*y[i]<=0:
-                    alpha+=eta
+                    alpha[i]+=eta
                     b+=eta*y[i]
                     isChange=True
-        self.w=
+        self.w=np.zeros(x.shape[1])
+        for i in range(x.shape[0]):
+            self.w+=alpha[i]*x[i,:]*y[i]
+        self.b=b
+
+    def predict(self,x):
+        ans=np.sum(x*self.w)+self.b
+        if ans>0:
+            return 1
+        else:
+            return -1
+
+if __name__=='__main__':
+    x=np.array([[3,3],[4,3],[1,1]])
+    y=np.array([1,1,-1])
+    per=Perceptron(x,y)
+    per.fit(1)
+    print(per.w)
+    print(per.b)
