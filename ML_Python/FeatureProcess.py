@@ -10,6 +10,7 @@ from sklearn.preprocessing import *
 from sklearn.feature_selection import *
 from scipy.stats import pearsonr,chisquare
 
+
 class Feature(object):
 
     def __init__(self):
@@ -102,12 +103,14 @@ class Feature(object):
             print(data.shape)
 
         elif x==2:
-            #卡方检验
-            data=np.array([40,70,48,60,52,30])
-            data2=np.zeros(6)+50
-            print(chisquare(data))
+            #卡方检验,这个方法有问题，卡方检验统计量越小两者相关性越高，使用SelectKBest函数只能选择最大值
+            data=self.data
+            target=self.target
+            print(chi2(data, target))
+            data=SelectKBest(chi2,k=2).fit_transform(data,target)
 
-            print(chisquare(data,data2))
+            print(data.shape)
+
 
 
 
