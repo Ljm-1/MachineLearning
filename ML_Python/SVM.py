@@ -4,6 +4,7 @@
 """支持向量机模型"""
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class SVM(object):
@@ -48,14 +49,12 @@ class SVM(object):
             return -1
 
     def SMO(self):
-
+        self.aim=[]
+        self.variable=[]
         while(not self.canStop()):
-            aim = 0
-            for i in range(self.x.shape[0]):
-                for j in range(self.x.shape[0]):
-                    aim+=self.alpha[i]*self.alpha[j]*self.y[i]*self.y[j]*self.Gram[i,j]
-            aim-=np.sum(self.alpha)
+
             i1,i2=self.getVariableIndex()
+            self.variable.append([i1,i2])
             K11=self.Gram[i1,i1]
             K22=self.Gram[i2,i2]
             K12=self.Gram[i1,i2]
@@ -85,6 +84,12 @@ class SVM(object):
             self.b=(b1_new+b2_new)/2
             for i in range(self.x.shape[0]):
                 self.E[i]=self.g(i)-self.y[i]
+            aim = 0
+            for i in range(self.x.shape[0]):
+                for j in range(self.x.shape[0]):
+                    aim += self.alpha[i] * self.alpha[j] * self.y[i] * self.y[j] * self.Gram[i, j]
+            aim -= np.sum(self.alpha)
+            self.aim.append(aim)
         for i in range(self.x.shape[1]):
             self.w[i]=np.sum(self.alpha*self.y*self.x[:,i])
 
@@ -95,7 +100,7 @@ class SVM(object):
         kkt=np.zeros((self.x.shape[0]))
         for i in range(self.x.shape[0]):
             kkt[i]=self.KKT(i)
-        if np.sum(np.abs(kkt))!=0:
+        if np.sum(np.abs(kkt))>0.00001:
             return False
         return True
 
@@ -104,22 +109,54 @@ class SVM(object):
 
     def getVariableIndex(self):
         """选择两个变量"""
-        row=self.x.shape[0]
-        kkt=np.zeros(row)
-        for i in range(row):
-            kkt[i]=self.KKT(i)
-        index1=np.where(kkt==np.max(kkt))[0][0]
+        isOK=False
+        k=0
+        while not isOK:
 
-        E=np.sort(self.E)
-        e1=self.E[index1]
-        if e1>0:
-            index2=np.where(E[0]==self.E)[0][0]
-            if index2==index1:
-                index2=np.where(E[1]==self.E)[0][0]
-        else:
-            index2=np.where(E[E.shape[0]-1]==self.E)[0][0]
-            if index2==index1:
-                index2=np.where(E[E.shape[0]-2]==self.E)[0][0]
+            row=self.x.shape[0]
+            kkt=np.zeros(row)
+            for i in range(row):
+                kkt[i]=self.KKT(i)
+            kktSorted=np.sort(kkt)
+            index1=np.where(kkt==kktSorted[row-k//row-1])[0][0]
+
+            E=np.sort(self.E)
+            e1=self.E[index1]
+            if e1>0:
+                index2=np.where(E[k%row]==self.E)[0][0]
+                if index2==index1:
+                    index2=np.where(E[(k+1)%row]==self.E)[0][0]
+            else:
+                index2=np.where(E[row-1-k%row]==self.E)[0][0]
+                if index2==index1:
+                    index2=np.where(E[row-1-(k+1)%row]==self.E)[0][0]
+            isOK=True
+            num=len(self.aim)
+            if num>0:
+                aim=self.aim[num-1]
+                for i in range(num-1,-1,-1):
+                    if(aim==self.aim[i]):
+                        if self.variable[i][0]==index1 and self.variable[i][1]==index2:
+                            isOK=False
+                            break
+                    else:
+                        break
+            k += 1
+
+            # if num>=2:
+            #     if self.aim[num-1]==self.aim[num-2]:
+            #         if self.variable[num-1][0]==self.variable[num-2][0] \
+            #                 and self.variable[num-2][0]==index1\
+            #                 and self.variable[num-1][1]==self.variable[num-2][1] \
+            #                 and self.variable[num-2][1]==index2:
+            #             isOK=False
+            #         else:
+            #             isOK=True
+            #     else:
+            #         isOK=True
+            # else:
+            #     isOK=True
+
         return index1,index2
 
     def KKT(self,i):
@@ -150,7 +187,11 @@ if __name__=="__main__":
     y=np.array([1,1,1,-1,-1])
     svm=SVM(1)
     svm.fit(x,y)
-    print(svm.w)
-    print(svm.b)
+    plt.scatter(x[:,0],x[:,1])
+    x=np.linspace(0,4,100)
+    y=(svm.w[0]*x+svm.b)/-svm.w[1]
+    plt.plot(x,y)
+    plt.show()
+
 
 
