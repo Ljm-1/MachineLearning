@@ -120,3 +120,5 @@ if __name__=='__main__':
     f=Feature()
     # f.dataPreProcessing(5)
     f.featureSelect(2)
+
+
